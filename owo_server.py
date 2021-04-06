@@ -4,7 +4,6 @@ import os
 import re
 import datetime
 
-regex = re.compile("(([uUoOvV][wW][uUoOvV])*([uUoO][vV][uUoO])*(:3)*( )*)+")
 sock = "/tmp/owosock"
 if os.path.exists(sock):
     os.remove(sock)
@@ -29,6 +28,12 @@ while True:
 
         owo = open(owo, "r")
         txt = owo.read().strip()
+
+        f = open("/pub/hammy/owo/regex", "r")
+        rawregex=f.read().strip()
+        print(rawregex)
+        regex = re.compile(rawregex)
+        f.close()
 
         if re.fullmatch(regex, txt):
             print(f":3 owo {user}");

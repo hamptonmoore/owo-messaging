@@ -5,8 +5,11 @@ import os
 import re
 import getpass
 
-rawregex = "(([uUoOvV][wW][uUoOvV])*([uUoO][vV][uUoO])*(:3)*( )*)+"
+
+f = open("/pub/hammy/owo/regex", "r")
+rawregex=f.read().strip()
 regex = re.compile(rawregex)
+f.close()
 
 user = getpass.getuser()
 
@@ -19,6 +22,7 @@ if os.path.exists("/tmp/owosock"):
 
     if not re.fullmatch(regex, message):
         print(f'please type an owo message with the following regex {rawregex}')
+        exit()
     
     owomessage = f'/pub/{user}/owomessage.txt'
     f = open(owomessage, "w")
@@ -26,6 +30,7 @@ if os.path.exists("/tmp/owosock"):
     f.close()
 
     client.send(user.encode('utf-8'))
+    print('message has been sent')
 else:
     print("owo server is down :( yell at hammy on IRC")
 
